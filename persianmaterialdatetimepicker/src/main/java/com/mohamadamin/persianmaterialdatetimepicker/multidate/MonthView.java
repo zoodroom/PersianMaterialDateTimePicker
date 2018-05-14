@@ -36,7 +36,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.mohamadamin.persianmaterialdatetimepicker.R;
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.Utils;
 import com.mohamadamin.persianmaterialdatetimepicker.multidate.MonthAdapter.CalendarDay;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
@@ -287,8 +286,7 @@ public abstract class MonthView extends View {
     mMonthTitlePaint.setFakeBoldText(true);
     mMonthTitlePaint.setAntiAlias(true);
     mMonthTitlePaint.setTextSize(MONTH_LABEL_TEXT_SIZE);
-    Typeface typeface = Typeface.create(TypefaceHelper.get(getContext(), mController.getTypeface()), Typeface.BOLD);
-    mMonthTitlePaint.setTypeface(typeface);
+    mMonthTitlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
     mMonthTitlePaint.setColor(mDayTextColor);
     mMonthTitlePaint.setTextAlign(Align.CENTER);
     mMonthTitlePaint.setStyle(Style.FILL);
@@ -305,7 +303,6 @@ public abstract class MonthView extends View {
     mMonthDayLabelPaint.setAntiAlias(true);
     mMonthDayLabelPaint.setTextSize(MONTH_DAY_LABEL_TEXT_SIZE);
     mMonthDayLabelPaint.setColor(mMonthDayTextColor);
-    mMonthDayLabelPaint.setTypeface(TypefaceHelper.get(getContext(), mController.getTypeface()));
     mMonthDayLabelPaint.setStyle(Style.FILL);
     mMonthDayLabelPaint.setTextAlign(Align.CENTER);
     mMonthDayLabelPaint.setFakeBoldText(true);

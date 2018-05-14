@@ -40,7 +40,6 @@ import android.widget.TextView;
 
 import com.mohamadamin.persianmaterialdatetimepicker.HapticFeedbackController;
 import com.mohamadamin.persianmaterialdatetimepicker.R;
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.Utils;
 import com.mohamadamin.persianmaterialdatetimepicker.time.RadialPickerLayout.OnValueSelectedListener;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
@@ -117,8 +116,6 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
   private String mSelectHours;
   private String mMinutePickerDescription;
   private String mSelectMinutes;
-
-  private String fontName;
 
   /**
    * The callback interface used to indicate the user is done filling in
@@ -244,11 +241,6 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
     mAmPmTextView = view.findViewById(R.id.ampm_label);
     mOkButton = view.findViewById(R.id.ok);
     Button mCancelButton = view.findViewById(R.id.cancel);
-    mOkButton.setTypeface(TypefaceHelper.get(activity, fontName));
-    mCancelButton.setTypeface(TypefaceHelper.get(activity, fontName));
-    mHourView.setTypeface(TypefaceHelper.get(activity, fontName));
-    mMinuteView.setTypeface(TypefaceHelper.get(activity, fontName));
-    mAmPmTextView.setTypeface(TypefaceHelper.get(activity, fontName));
     mAmPmTextView.setOnKeyListener(keyboardListener);
     mAmText = "قبل‌ازظهر";
     mPmText = "بعدازظهر";
@@ -259,7 +251,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
     mTimePicker.setOnValueSelectedListener(this);
     mTimePicker.setOnKeyListener(keyboardListener);
     mTimePicker.initialize(getActivity(), mHapticFeedbackController, mInitialHourOfDay,
-      mInitialMinute, mIs24HourMode,fontName);
+      mInitialMinute, mIs24HourMode);
 
     int currentItemShowing = HOUR_INDEX;
     if (savedInstanceState != null &&
@@ -485,16 +477,6 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
       }
       finishKbMode(true);
     }
-  }
-
-  @Override
-  public void setTypeface(String fontName) {
-    this.fontName = fontName;
-  }
-
-  @Override
-  public String getTypeface() {
-    return fontName;
   }
 
   private void setHour(int value, boolean announce) {

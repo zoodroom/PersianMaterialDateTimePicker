@@ -38,7 +38,6 @@ import android.widget.TextView;
 
 import com.mohamadamin.persianmaterialdatetimepicker.HapticFeedbackController;
 import com.mohamadamin.persianmaterialdatetimepicker.R;
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.Utils;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -74,7 +73,6 @@ public class DatePickerDialog extends DialogFragment implements
   private static final String KEY_HIGHLIGHTED_DAYS = "highlighted_days";
   private static final String KEY_SELECTABLE_DAYS = "selectable_days";
   private static final String KEY_THEME_DARK = "theme_dark";
-  private static final String KEY_FONT_NAME = "font_name";
 
   private static final int DEFAULT_START_YEAR = 1350;
   private static final int DEFAULT_END_YEAR = 1450;
@@ -118,8 +116,6 @@ public class DatePickerDialog extends DialogFragment implements
   private String mSelectDay;
   private String mYearPickerDescription;
   private String mSelectYear;
-
-  private String fontName;
 
   /**
    * The callback used to indicate the user is done filling in the date.
@@ -194,7 +190,6 @@ public class DatePickerDialog extends DialogFragment implements
     outState.putInt(KEY_YEAR_START, mMinYear);
     outState.putInt(KEY_YEAR_END, mMaxYear);
     outState.putInt(KEY_CURRENT_VIEW, mCurrentView);
-    outState.putString(KEY_FONT_NAME, fontName);
     int listPosition = -1;
     if (mCurrentView == MONTH_AND_DAY_VIEW) {
       listPosition = mDayPickerView.getMostVisiblePosition();
@@ -225,14 +220,6 @@ public class DatePickerDialog extends DialogFragment implements
     mYearView = view.findViewById(R.id.date_picker_year);
     Button okButton = view.findViewById(R.id.ok);
     Button cancelButton = view.findViewById(R.id.cancel);
-    okButton.setTypeface(TypefaceHelper.get(activity, fontName));
-    cancelButton.setTypeface(TypefaceHelper.get(activity, fontName));
-    if (mDayOfWeekTextView != null) {
-      mDayOfWeekTextView.setTypeface(TypefaceHelper.get(activity, fontName));
-    }
-    mSelectedMonthTextView.setTypeface(TypefaceHelper.get(activity, fontName));
-    mSelectedDayTextView.setTypeface(TypefaceHelper.get(activity, fontName));
-    mYearView.setTypeface(TypefaceHelper.get(activity, fontName));
     mYearView.setOnClickListener(this);
 
     int listPosition = -1;
@@ -250,7 +237,6 @@ public class DatePickerDialog extends DialogFragment implements
       highlightedDays = (PersianCalendar[]) savedInstanceState.getSerializable(KEY_HIGHLIGHTED_DAYS);
       selectableDays = (PersianCalendar[]) savedInstanceState.getSerializable(KEY_SELECTABLE_DAYS);
       mThemeDark = savedInstanceState.getBoolean(KEY_THEME_DARK);
-      fontName = savedInstanceState.getString(KEY_FONT_NAME);
     }
     mDayPickerView = new SimpleDayPickerView(activity, this);
     mYearPickerView = new YearPickerView(activity, this);
@@ -652,13 +638,4 @@ public class DatePickerDialog extends DialogFragment implements
     mHapticFeedbackController.tryVibrate();
   }
 
-  @Override
-  public void setTypeface(String fontName) {
-    this.fontName = fontName;
-  }
-
-  @Override
-  public String getTypeface() {
-    return fontName;
-  }
 }

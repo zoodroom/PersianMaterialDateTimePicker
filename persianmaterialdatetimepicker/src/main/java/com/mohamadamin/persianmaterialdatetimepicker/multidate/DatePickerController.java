@@ -57,7 +57,4 @@ public interface DatePickerController {
 
   void tryVibrate();
 
-  void setTypeface(String fontName);
-
-  String getTypeface();
 }

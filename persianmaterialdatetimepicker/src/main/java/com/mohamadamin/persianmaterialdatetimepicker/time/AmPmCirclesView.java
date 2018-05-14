@@ -25,7 +25,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.mohamadamin.persianmaterialdatetimepicker.R;
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.Utils;
 
 /**
@@ -62,21 +61,18 @@ public class AmPmCirclesView extends View {
   private int mAmOrPm;
   private int mAmOrPmPressed;
   private Context context;
-  private String fontName;
 
-  public AmPmCirclesView(Context context, String fontName) {
+  public AmPmCirclesView(Context context) {
     super(context);
     this.context = context;
     mIsInitialized = false;
-    this.fontName = fontName;
   }
 
-  public void initialize(Context context, int amOrPm, String fontName) {
+  public void initialize(Context context, int amOrPm) {
     if (mIsInitialized) {
       Log.e(TAG, "AmPmCirclesView may only be initialized once.");
       return;
     }
-    this.fontName = fontName;
 
     Resources res = context.getResources();
     mUnselectedColor = res.getColor(R.color.mdtp_white);
@@ -85,7 +81,6 @@ public class AmPmCirclesView extends View {
     mAmPmTextColor = res.getColor(R.color.mdtp_ampm_text_color);
     mAmPmSelectedTextColor = res.getColor(R.color.mdtp_white);
     mSelectedAlpha = SELECTED_ALPHA;
-    mPaint.setTypeface(TypefaceHelper.get(context, fontName));
     mPaint.setAntiAlias(true);
     mPaint.setTextAlign(Align.CENTER);
 
@@ -218,6 +213,5 @@ public class AmPmCirclesView extends View {
     canvas.drawText(mAmText, mAmXCenter, textYCenter, mPaint);
     mPaint.setColor(pmTextColor);
     canvas.drawText(mPmText, mPmXCenter, textYCenter, mPaint);
-    mPaint.setTypeface(TypefaceHelper.get(context, fontName));
   }
 }

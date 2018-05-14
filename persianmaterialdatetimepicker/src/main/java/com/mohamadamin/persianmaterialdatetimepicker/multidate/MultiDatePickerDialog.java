@@ -39,7 +39,6 @@ import android.widget.TextView;
 
 import com.mohamadamin.persianmaterialdatetimepicker.HapticFeedbackController;
 import com.mohamadamin.persianmaterialdatetimepicker.R;
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.Utils;
 import com.mohamadamin.persianmaterialdatetimepicker.date.AccessibleDateAnimator;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
@@ -119,8 +118,6 @@ public class MultiDatePickerDialog extends DialogFragment implements
   private String mSelectDay;
   private String mYearPickerDescription;
   private String mSelectYear;
-
-  private String fontName;
 
   /**
    * The callback used to indicate the user is done filling in the date.
@@ -213,17 +210,11 @@ public class MultiDatePickerDialog extends DialogFragment implements
     View view = inflater.inflate(R.layout.mdtp_date_picker_dialog, null);
     final Activity activity = getActivity();
     mDayOfWeekView = view.findViewById(R.id.date_picker_header);
-    if (mDayOfWeekView != null) {
-      mDayOfWeekView.setTypeface(TypefaceHelper.get(activity, fontName));
-    }
     mMonthAndDayView = view.findViewById(R.id.date_picker_month_and_day);
     mMonthAndDayView.setOnClickListener(this);
     mSelectedMonthTextView = view.findViewById(R.id.date_picker_month);
-    mSelectedMonthTextView.setTypeface(TypefaceHelper.get(activity, fontName));
     mSelectedDayTextView = view.findViewById(R.id.date_picker_day);
-    mSelectedDayTextView.setTypeface(TypefaceHelper.get(activity, fontName));
     mYearView = view.findViewById(R.id.date_picker_year);
-    mYearView.setTypeface(TypefaceHelper.get(activity, fontName));
     mYearView.setOnClickListener(this);
 
     int listPosition = -1;
@@ -281,7 +272,6 @@ public class MultiDatePickerDialog extends DialogFragment implements
         dismiss();
       }
     });
-    okButton.setTypeface(TypefaceHelper.get(activity, fontName));
 
     Button cancelButton = view.findViewById(R.id.cancel);
     cancelButton.setOnClickListener(new OnClickListener() {
@@ -291,7 +281,6 @@ public class MultiDatePickerDialog extends DialogFragment implements
         getDialog().cancel();
       }
     });
-    cancelButton.setTypeface(TypefaceHelper.get(activity, fontName));
     cancelButton.setVisibility(isCancelable() ? View.VISIBLE : View.GONE);
 
     updateDisplay(false);
@@ -666,13 +655,4 @@ public class MultiDatePickerDialog extends DialogFragment implements
     mHapticFeedbackController.tryVibrate();
   }
 
-  @Override
-  public void setTypeface(String fontName) {
-    this.fontName = fontName;
-  }
-
-  @Override
-  public String getTypeface() {
-    return fontName;
-  }
 }

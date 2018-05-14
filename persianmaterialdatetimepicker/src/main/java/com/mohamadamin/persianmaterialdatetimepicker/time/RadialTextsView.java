@@ -25,13 +25,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.util.Log;
 import android.view.View;
 
 import com.mohamadamin.persianmaterialdatetimepicker.R;
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
 
 /**
@@ -77,22 +75,19 @@ public class RadialTextsView extends View {
   ObjectAnimator mReappearAnimator;
   private InvalidateUpdateListener mInvalidateUpdateListener;
   private Context context;
-  private String fontName;
 
-  public RadialTextsView(Context context, String fontName) {
+  public RadialTextsView(Context context) {
     super(context);
     this.context = context;
     mIsInitialized = false;
-    this.fontName = fontName;
   }
 
   public void initialize(Resources res, String[] texts, String[] innerTexts,
-                         boolean is24HourMode, boolean disappearsOut, String fontName) {
+                         boolean is24HourMode, boolean disappearsOut) {
     if (mIsInitialized) {
       Log.e(TAG, "This RadialTextsView may only be initialized once.");
       return;
     }
-    this.fontName = fontName;
 
     // Set up the paint.
     int numbersTextColor = res.getColor(R.color.mdtp_numbers_text_color);
@@ -104,7 +99,6 @@ public class RadialTextsView extends View {
     int selectedTextColor = res.getColor(R.color.mdtp_white);
     mSelectedPaint.setColor(selectedTextColor);
     mSelectedPaint.setAntiAlias(true);
-    mSelectedPaint.setTypeface(TypefaceHelper.get(context, fontName));
     mSelectedPaint.setTextAlign(Align.CENTER);
 
     mTexts = texts;
@@ -241,9 +235,9 @@ public class RadialTextsView extends View {
     }
 
     // Draw the texts in the pre-calculated positions.
-    drawTexts(canvas, mTextSize, TypefaceHelper.get(context, fontName), mTexts, mTextGridWidths, mTextGridHeights);
+    drawTexts(canvas, mTextSize, mTexts, mTextGridWidths, mTextGridHeights);
     if (mHasInnerCircle) {
-      drawTexts(canvas, mInnerTextSize, TypefaceHelper.get(context, fontName), mInnerTexts,
+      drawTexts(canvas, mInnerTextSize, mInnerTexts,
         mInnerTextGridWidths, mInnerTextGridHeights);
     }
   }
@@ -287,10 +281,9 @@ public class RadialTextsView extends View {
   /**
    * Draw the 12 text values at the positions specified by the textGrid parameters.
    */
-  private void drawTexts(Canvas canvas, float textSize, Typeface typeface, String[] texts,
+  private void drawTexts(Canvas canvas, float textSize, String[] texts,
                          float[] textGridWidths, float[] textGridHeights) {
     mPaint.setTextSize(textSize);
-    mPaint.setTypeface(typeface);
     LanguageUtils.getPersianNumbers(texts);
     canvas.drawText(texts[0], textGridWidths[3], textGridHeights[0], Integer.parseInt(texts[0]) == selection ? mSelectedPaint : mPaint);
     canvas.drawText(texts[1], textGridWidths[4], textGridHeights[1], Integer.parseInt(texts[1]) == selection ? mSelectedPaint : mPaint);

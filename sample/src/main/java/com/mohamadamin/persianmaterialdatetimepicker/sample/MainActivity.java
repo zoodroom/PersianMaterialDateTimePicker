@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View view) {
-        String fontName = "DroidNaskh-Regular";
         switch (view.getId()) {
             case R.id.time_button: {
                 PersianCalendar now = new PersianCalendar();
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements
                         mode24Hours.isChecked()
                 );
                 tpd.setThemeDark(modeDarkTime.isChecked());
-                tpd.setTypeface(fontName);
                 tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
@@ -89,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements
                         now.getPersianDay()
                 );
                 dpd.setThemeDark(modeDarkDate.isChecked());
-                dpd.setTypeface(fontName);
                 dpd.show(getFragmentManager(), DATEPICKER);
                 break;
             }
@@ -102,9 +99,7 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 mdpd.setMinDate(pc[0]);
                 mdpd.setMaxDate(pc[29]);
-                //mdpd.setSelectableDays(pc);
                 mdpd.setThemeDark(modeDarkDate.isChecked());
-                mdpd.setTypeface(fontName);
                 mdpd.show(getFragmentManager(), MULTIDATEPICKER);
                 break;
             default:

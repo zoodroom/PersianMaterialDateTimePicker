@@ -98,14 +98,8 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
   private AnimatorSet mTransition;
   private Handler mHandler = new Handler();
 
-  private String fontName;
-
   public interface OnValueSelectedListener {
     void onValueSelected(int pickerIndex, int newValue, boolean autoAdvance);
-
-    void setTypeface(String fontName);
-
-    String getTypeface();
   }
 
   public RadialPickerLayout(Context context, AttributeSet attrs) {
@@ -120,7 +114,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
     mCircleView = new CircleView(context);
     addView(mCircleView);
 
-    mAmPmCirclesView = new AmPmCirclesView(context, fontName);
+    mAmPmCirclesView = new AmPmCirclesView(context);
     addView(mAmPmCirclesView);
 
     mHourRadialSelectorView = new RadialSelectorView(context);
@@ -128,9 +122,9 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
     mMinuteRadialSelectorView = new RadialSelectorView(context);
     addView(mMinuteRadialSelectorView);
 
-    mHourRadialTextsView = new RadialTextsView(context, fontName);
+    mHourRadialTextsView = new RadialTextsView(context);
     addView(mHourRadialTextsView);
-    mMinuteRadialTextsView = new RadialTextsView(context, fontName);
+    mMinuteRadialTextsView = new RadialTextsView(context);
     addView(mMinuteRadialTextsView);
 
     // Prepare mapping to snap touchable degrees to selectable degrees.
@@ -179,10 +173,9 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
    * @param initialHoursOfDay
    * @param initialMinutes
    * @param is24HourMode
-   * @param fontName
    */
   public void initialize(Context context, HapticFeedbackController hapticFeedbackController,
-                         int initialHoursOfDay, int initialMinutes, boolean is24HourMode, String fontName) {
+                         int initialHoursOfDay, int initialMinutes, boolean is24HourMode) {
     if (mTimeInitialized) {
       Log.e(TAG, "Time has already been initialized.");
       return;
@@ -191,13 +184,12 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
     mHapticFeedbackController = hapticFeedbackController;
     mIs24HourMode = is24HourMode;
     mHideAmPm = mAccessibilityManager.isTouchExplorationEnabled() || mIs24HourMode;
-    this.fontName=fontName;
 
     // Initialize the circle and AM/PM circles if applicable.
     mCircleView.initialize(context, mHideAmPm);
     mCircleView.invalidate();
     if (!mHideAmPm) {
-      mAmPmCirclesView.initialize(context, initialHoursOfDay < 12 ? AM : PM,fontName);
+      mAmPmCirclesView.initialize(context, initialHoursOfDay < 12 ? AM : PM);
       mAmPmCirclesView.invalidate();
     }
 
@@ -217,10 +209,10 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
       minutesTexts[i] = LanguageUtils.getPersianNumbers(String.format(Locale.getDefault(),"%02d", minutes[i]));
     }
     mHourRadialTextsView.initialize(res,
-      hoursTexts, (is24HourMode ? innerHoursTexts : null), mHideAmPm, true,fontName);
+      hoursTexts, (is24HourMode ? innerHoursTexts : null), mHideAmPm, true);
     mHourRadialTextsView.setSelection(is24HourMode ? initialHoursOfDay : initialHoursOfDay % 12);
     mHourRadialTextsView.invalidate();
-    mMinuteRadialTextsView.initialize(res, minutesTexts, null, mHideAmPm, false, fontName);
+    mMinuteRadialTextsView.initialize(res, minutesTexts, null, mHideAmPm, false);
     mMinuteRadialTextsView.setSelection(initialMinutes);
     mMinuteRadialTextsView.invalidate();
 

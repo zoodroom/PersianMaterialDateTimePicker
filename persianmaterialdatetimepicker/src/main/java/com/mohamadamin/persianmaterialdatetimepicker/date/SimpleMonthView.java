@@ -21,7 +21,6 @@ import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
-import com.mohamadamin.persianmaterialdatetimepicker.TypefaceHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
 
 import java.util.Locale;
@@ -42,11 +41,9 @@ public class SimpleMonthView extends MonthView {
         mSelectedCirclePaint);
     }
     if (isHighlighted(year, month, day)) {
-      Typeface typefaceBold = Typeface.create(TypefaceHelper.get(getContext(), controller.getTypeface()), Typeface.BOLD);
-      mMonthNumPaint.setTypeface(typefaceBold);
+      mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
     } else {
-      Typeface typefaceNormal = Typeface.create(TypefaceHelper.get(getContext(), controller.getTypeface()), Typeface.NORMAL);
-      mMonthNumPaint.setTypeface(typefaceNormal);
+      mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
     }
 
     // If we have a mindate or maxdate, gray out the day number if it's outside the range.
